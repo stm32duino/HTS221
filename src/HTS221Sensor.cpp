@@ -52,7 +52,7 @@
  */
 HTS221Sensor::HTS221Sensor(TwoWire *i2c) : dev_i2c(i2c)
 {
-  address = HTS221_I2C_ADDRESS; 
+  address = HTS221_I2C_ADDRESS;
 
   /* Power down the device */
   if ( HTS221_DeActivate( (void *)this ) == HTS221_ERROR )
@@ -65,7 +65,7 @@ HTS221Sensor::HTS221Sensor(TwoWire *i2c) : dev_i2c(i2c)
   {
     return;
   }
-  
+
   if(SetODR(1.0f) == HTS221_STATUS_ERROR)
   {
     return;
@@ -77,7 +77,7 @@ HTS221Sensor::HTS221Sensor(TwoWire *i2c) : dev_i2c(i2c)
  * @param i2c object of an helper class which handles the I2C peripheral
  * @param address the address of the component's instance
  */
-HTS221Sensor::HTS221Sensor(TwoWire *i2c, uint8_t address) : dev_i2c(i2c), address(address)
+HTS221Sensor::HTS221Sensor(TwoWire *i2c, uint8_t address) : address(address), dev_i2c(i2c)
 {
     /* Power down the device */
   if ( HTS221_DeActivate( (void *)this ) == HTS221_ERROR )
@@ -90,7 +90,7 @@ HTS221Sensor::HTS221Sensor(TwoWire *i2c, uint8_t address) : dev_i2c(i2c), addres
   {
     return;
   }
-  
+
   if(SetODR(1.0f) == HTS221_STATUS_ERROR)
   {
     return;
@@ -166,7 +166,7 @@ HTS221StatusTypeDef HTS221Sensor::Reset(void)
     {
       return HTS221_STATUS_ERROR;
     }
-    
+
     return HTS221_STATUS_OK;
 }
 
