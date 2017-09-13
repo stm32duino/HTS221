@@ -1,0 +1,30 @@
+#######################################
+# Syntax Coloring Map For HTS221
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+HTS221Sensor	KEYWORD1	HTS221Sensor
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+Enable							KEYWORD2
+Disable							KEYWORD2
+ReadID							KEYWORD2
+Reset							KEYWORD2
+GetHumidity						KEYWORD2
+GetTemperature					KEYWORD2
+GetODR							KEYWORD2
+SetODR							KEYWORD2
+ReadReg							KEYWORD2
+WriteReg						KEYWORD2
+IO_Read							KEYWORD2
+IO_Write						KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
