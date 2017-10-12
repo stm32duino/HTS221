@@ -42,8 +42,8 @@
 // Includes.
 #include <HTS221Sensor.h>
 
-#define I2C2_SCL    D33
-#define I2C2_SDA    D34
+#define I2C2_SCL    PB10
+#define I2C2_SDA    PB11
 
 // Components.
 HTS221Sensor  *HumTemp;
