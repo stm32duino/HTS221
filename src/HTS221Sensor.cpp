@@ -41,7 +41,6 @@
 #include "Arduino.h"
 #include "Wire.h"
 #include "HTS221Sensor.h"
-#include "HTS221_Driver.h"
 
 
 /* Class Implementation ------------------------------------------------------*/
@@ -77,7 +76,7 @@ HTS221Sensor::HTS221Sensor(TwoWire *i2c) : dev_i2c(i2c)
  * @param i2c object of an helper class which handles the I2C peripheral
  * @param address the address of the component's instance
  */
-HTS221Sensor::HTS221Sensor(TwoWire *i2c, uint8_t address) : address(address), dev_i2c(i2c)
+HTS221Sensor::HTS221Sensor(TwoWire *i2c, uint8_t address) : dev_i2c(i2c), address(address)
 {
     /* Power down the device */
   if ( HTS221_DeActivate( (void *)this ) == HTS221_ERROR )
