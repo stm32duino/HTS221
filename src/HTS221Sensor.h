@@ -123,12 +123,11 @@ class HTS221Sensor
     }
 
   private:
+    /* Helper classes. */
+    TwoWire *dev_i2c;
 
     /* Configuration */
     uint8_t address;
-
-    /* Helper classes. */
-    TwoWire *dev_i2c;
 };
 
 #ifdef __cplusplus
