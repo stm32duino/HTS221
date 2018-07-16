@@ -6,7 +6,7 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-HTS221Sensor	KEYWORD1	HTS221Sensor
+HTS221Sensor	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
