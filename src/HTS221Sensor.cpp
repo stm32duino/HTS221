@@ -52,49 +52,48 @@
 HTS221Sensor::HTS221Sensor(TwoWire *i2c) : dev_i2c(i2c)
 {
   address = HTS221_I2C_ADDRESS;
+};
 
+/**
+ * @brief  Configure the sensor in order to be used
+ * @retval 0 in case of success, an error code otherwise
+ */
+HTS221StatusTypeDef HTS221Sensor::begin()
+{
   /* Power down the device */
   if ( HTS221_DeActivate( (void *)this ) == HTS221_ERROR )
   {
-    return;
+    return HTS221_STATUS_ERROR;
   }
 
   /* Enable BDU */
   if ( HTS221_Set_BduMode( (void *)this, HTS221_ENABLE ) == HTS221_ERROR )
   {
-    return;
+    return HTS221_STATUS_ERROR;
   }
 
   if(SetODR(1.0f) == HTS221_STATUS_ERROR)
   {
-    return;
+    return HTS221_STATUS_ERROR;
   }
-};
 
+  return HTS221_STATUS_OK;
+}
 
-/** Constructor
- * @param i2c object of an helper class which handles the I2C peripheral
- * @param address the address of the component's instance
+/**
+ * @brief  Disable the sensor and relative resources
+ * @retval 0 in case of success, an error code otherwise
  */
-HTS221Sensor::HTS221Sensor(TwoWire *i2c, uint8_t address) : dev_i2c(i2c), address(address)
+HTS221StatusTypeDef HTS221Sensor::end()
 {
-    /* Power down the device */
-  if ( HTS221_DeActivate( (void *)this ) == HTS221_ERROR )
+  /* Disable humidity and temperature sensor */
+  if ( Disable() != HTS221_STATUS_OK )
   {
-    return;
+    return HTS221_STATUS_ERROR;
   }
 
-  /* Enable BDU */
-  if ( HTS221_Set_BduMode( (void *)this, HTS221_ENABLE ) == HTS221_ERROR )
-  {
-    return;
-  }
-
-  if(SetODR(1.0f) == HTS221_STATUS_ERROR)
-  {
-    return;
-  }
-};
+  return HTS221_STATUS_OK;
+}
 
 /**
  * @brief  Enable HTS221
@@ -117,7 +116,7 @@ HTS221StatusTypeDef HTS221Sensor::Enable(void)
  */
 HTS221StatusTypeDef HTS221Sensor::Disable(void)
 {
-  /* Power up the device */
+  /* Power off the device */
   if ( HTS221_DeActivate( (void *)this ) == HTS221_ERROR )
   {
     return HTS221_STATUS_ERROR;
