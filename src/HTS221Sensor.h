@@ -66,7 +66,8 @@ class HTS221Sensor
 {
   public:
     HTS221Sensor                       (TwoWire *i2c);
-    HTS221Sensor                       (TwoWire *i2c, uint8_t address);
+    HTS221StatusTypeDef begin          (void);
+    HTS221StatusTypeDef end            (void);
     HTS221StatusTypeDef Enable         (void);
     HTS221StatusTypeDef Disable        (void);
     HTS221StatusTypeDef ReadID         (uint8_t *ht_id);

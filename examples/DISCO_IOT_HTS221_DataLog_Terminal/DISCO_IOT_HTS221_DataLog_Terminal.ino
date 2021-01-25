@@ -45,9 +45,11 @@
 #define I2C2_SCL    PB10
 #define I2C2_SDA    PB11
 
+// I2C
+TwoWire dev_i2c(I2C2_SDA, I2C2_SCL);
+
 // Components.
-HTS221Sensor  *HumTemp;
-TwoWire *dev_i2c;
+HTS221Sensor  HumTemp(&dev_i2c);
 
 void setup() {
   // Led.
@@ -56,12 +58,11 @@ void setup() {
   Serial.begin(9600);
 
   // Initialize I2C bus.
-  dev_i2c = new TwoWire(I2C2_SDA, I2C2_SCL);
-  dev_i2c->begin();
+  dev_i2c.begin();
 
   // Initlialize components.
-  HumTemp = new HTS221Sensor (dev_i2c);
-  HumTemp->Enable();
+  HumTemp.begin();
+  HumTemp.Enable();
 }
 
 void loop() {
@@ -73,8 +74,8 @@ void loop() {
 
   // Read humidity and temperature.
   float humidity, temperature;
-  HumTemp->GetHumidity(&humidity);
-  HumTemp->GetTemperature(&temperature);
+  HumTemp.GetHumidity(&humidity);
+  HumTemp.GetTemperature(&temperature);
 
   // Output data.
   Serial.print("Hum[%]: ");
