@@ -74,7 +74,7 @@ void HTS221_assert_failed(uint8_t* file, uint32_t line);
 */
 
 /* Exported Types -------------------------------------------------------------*/
-/** @defgroup HTS221_Exported_Types
+/** @defgroup HTS221_Exported_Types Exported Types
 * @{
 */
 
@@ -201,7 +201,7 @@ typedef struct
 
 
 /* Exported Constants ---------------------------------------------------------*/
-/** @defgroup HTS221_Exported_Constants
+/** @defgroup HTS221_Exported_Constants Exported Constants
 * @{
 */
 
@@ -447,7 +447,7 @@ typedef struct
 
 
 /* Exported Functions -------------------------------------------------------------*/
-/** @defgroup HTS221_Exported_Functions
+/** @defgroup HTS221_Exported_Functions Exported Functions
 * @{
 */
 

@@ -48,7 +48,7 @@
 #include "HTS221_Driver.h"
 
 
-/* Typedefs ------------------------------------------------------------------*/
+/** Result codes returned by HTS221Sensor operations. */
 typedef enum
 {
   HTS221_STATUS_OK = 0,
@@ -59,31 +59,52 @@ typedef enum
 
 /* Class Declaration ---------------------------------------------------------*/
 
-/**
- * Abstract class of an HTS221 Humidity and Temperature sensor.
- */
+/** Controls an HTS221 humidity and temperature sensor over I2C. */
 class HTS221Sensor
 {
   public:
+    /** Construct the sensor interface using the supplied I2C bus. */
     HTS221Sensor                       (TwoWire *i2c);
+
+    /** Initialize the sensor and its communication interface. */
     HTS221StatusTypeDef begin          (void);
+
+    /** Shut down the sensor interface. */
     HTS221StatusTypeDef end            (void);
+
+    /** Enable sensor measurements. */
     HTS221StatusTypeDef Enable         (void);
+
+    /** Disable sensor measurements. */
     HTS221StatusTypeDef Disable        (void);
+
+    /** Read the sensor identifier into @p ht_id. */
     HTS221StatusTypeDef ReadID         (uint8_t *ht_id);
+
+    /** Reset the sensor. */
     HTS221StatusTypeDef Reset          (void);
+
+    /** Read relative humidity into @p pfData. */
     HTS221StatusTypeDef GetHumidity    (float *pfData);
+
+    /** Read temperature into @p pfData. */
     HTS221StatusTypeDef GetTemperature (float *pfData);
+
+	/** Get the output data rate and store it in @p odr. */
 	HTS221StatusTypeDef GetODR         (float *odr);
+	/** Set the output data rate to @p odr. */
 	HTS221StatusTypeDef SetODR         (float odr);
+	/** Read register @p reg into @p data. */
 	HTS221StatusTypeDef ReadReg        (uint8_t reg, uint8_t *data);
+	/** Write @p data to register @p reg. */
 	HTS221StatusTypeDef WriteReg       (uint8_t reg, uint8_t data);
+
 	/**
-     * @brief Utility function to read data.
-     * @param  pBuffer: pointer to data to be read.
-     * @param  RegisterAddr: specifies internal address register to be read.
-     * @param  NumByteToRead: number of bytes to be read.
-     * @retval 0 if ok, an error code otherwise.
+     * @brief Read bytes from the sensor over I2C.
+     * @param pBuffer Destination buffer for the bytes read.
+     * @param RegisterAddr Internal register address to read from.
+     * @param NumByteToRead Number of bytes to read.
+     * @return Zero.
      */
     uint8_t IO_Read(uint8_t* pBuffer, uint8_t RegisterAddr, uint16_t NumByteToRead)
     {
@@ -104,11 +125,11 @@ class HTS221Sensor
     }
     
     /**
-     * @brief Utility function to write data.
-     * @param  pBuffer: pointer to data to be written.
-     * @param  RegisterAddr: specifies internal address register to be written.
-     * @param  NumByteToWrite: number of bytes to write.
-     * @retval 0 if ok, an error code otherwise.
+    * @brief Write bytes to the sensor over I2C.
+    * @param pBuffer Source buffer containing the bytes to write.
+    * @param RegisterAddr Internal register address to write to.
+    * @param NumByteToWrite Number of bytes to write.
+    * @return Zero.
      */
     uint8_t IO_Write(uint8_t* pBuffer, uint8_t RegisterAddr, uint16_t NumByteToWrite)
     {
