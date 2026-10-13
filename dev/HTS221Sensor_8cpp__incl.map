@@ -1,0 +1,14 @@
+<map id="src/HTS221Sensor.cpp" name="src/HTS221Sensor.cpp">
+<area shape="rect" id="Node000001" title="Implementation of a HTS221 Humidity and Temperature sensor." alt="" coords="45,5,210,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,89,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,33,72,72,69,68,113,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="95,152,159,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="130,31,130,138,125,138,125,31"/>
+<area shape="rect" id="Node000004" href="$HTS221Sensor_8h.html" title="Abstract class of a HTS221 Humidity and Temperature sensor." alt="" coords="165,79,292,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="145,28,202,68,199,73,142,33"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="214,106,157,146,154,142,211,102"/>
+<area shape="rect" id="Node000005" href="$HTS221__Driver_8h.html" title="HTS221 driver header file." alt="" coords="183,152,314,177"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="235,104,244,138,239,140,229,105"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="213,225,284,251"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="251,178,251,212,246,212,246,178"/>
+</map>
