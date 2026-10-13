@@ -74,7 +74,7 @@ void HTS221_assert_failed(uint8_t* file, uint32_t line);
 */
 
 /* Exported Types -------------------------------------------------------------*/
-/** @defgroup HTS221_Exported_Types
+/** @defgroup HTS221_Exported_Types Exported Types
 * @{
 */
 
@@ -201,7 +201,7 @@ typedef struct
 
 
 /* Exported Constants ---------------------------------------------------------*/
-/** @defgroup HTS221_Exported_Constants
+/** @defgroup HTS221_Exported_Constants Exported Constants
 * @{
 */
 
@@ -295,7 +295,7 @@ typedef struct
 * 2 BDU: block data update. 0 - continuous update; 1 - output registers not updated until MSB and LSB reading.
 * 1:0 ODR1, ODR0: output data rate selection.
 *
-*   ODR1  | ODR0  | Humidity output data-rate(Hz)  | Pressure output data-rate(Hz)
+*   ODR1  | ODR0  | Humidity output data-rate(Hz)  | Temperature output data-rate(Hz)
 *   ----------------------------------------------------------------------------------
 *     0   |   0   |         one shot               |         one shot
 *     0   |   1   |            1                   |            1
@@ -321,18 +321,18 @@ typedef struct
 * Default value: 0x00
 * 7 BOOT:  Reboot memory content. 0: normal mode; 1: reboot memory content. Self-cleared upon completation.
 * 6:2 Reserved.
-* 1 HEATHER: 0: heater enable; 1: heater disable.
+* 1 HEATER: 0: heater disable; 1: heater enable.
 * 0 ONE_SHOT: 0: waiting for start of conversion; 1: start for a new dataset. Self-cleared upon completation.
 * \endcode
 */
 #define HTS221_CTRL_REG2      (uint8_t)0x21
 
 #define HTS221_BOOT_BIT        HTS221_BIT(7)
-#define HTS221_HEATHER_BIT     HTS221_BIT(1)
+#define HTS221_HEATER_BIT      HTS221_BIT(1)
 #define HTS221_ONESHOT_BIT     HTS221_BIT(0)
 
 #define HTS221_BOOT_MASK      (uint8_t)0x80
-#define HTS221_HEATHER_MASK   (uint8_t)0x02
+#define HTS221_HEATER_MASK    (uint8_t)0x02
 #define HTS221_ONE_SHOT_MASK  (uint8_t)0x01
 
 /**
@@ -447,7 +447,7 @@ typedef struct
 
 
 /* Exported Functions -------------------------------------------------------------*/
-/** @defgroup HTS221_Exported_Functions
+/** @defgroup HTS221_Exported_Functions Exported Functions
 * @{
 */
 

@@ -45,9 +45,9 @@
 
 /* Class Implementation ------------------------------------------------------*/
 
-/** Constructor
- * @param i2c object of an helper class which handles the I2C peripheral
- * @param address the address of the component's instance
+/**
+ * @brief Construct an HTS221 sensor driver.
+ * @param i2c I2C interface used to communicate with the sensor.
  */
 HTS221Sensor::HTS221Sensor(TwoWire *i2c) : dev_i2c(i2c)
 {
@@ -143,7 +143,6 @@ HTS221StatusTypeDef HTS221Sensor::ReadID(uint8_t *ht_id)
 
 /**
  * @brief  Reboot memory content of HTS221
- * @param  None
  * @retval HTS221_STATUS_OK in case of success, an error code otherwise
  */
 HTS221StatusTypeDef HTS221Sensor::Reset(void)
@@ -169,8 +168,8 @@ HTS221StatusTypeDef HTS221Sensor::Reset(void)
 }
 
 /**
- * @brief  Read HTS221 output register, and calculate the humidity
- * @param  pfData the pointer to data output
+ * @brief  Read humidity and convert the result to percent.
+ * @param  pfData pointer receiving humidity in percent
  * @retval HTS221_STATUS_OK in case of success, an error code otherwise
  */
 HTS221StatusTypeDef HTS221Sensor::GetHumidity(float* pfData)
@@ -189,8 +188,8 @@ HTS221StatusTypeDef HTS221Sensor::GetHumidity(float* pfData)
 }
 
 /**
- * @brief  Read HTS221 output register, and calculate the temperature
- * @param  pfData the pointer to data output
+ * @brief  Read temperature and convert the result to degrees Celsius.
+ * @param  pfData pointer receiving temperature in degrees Celsius
  * @retval HTS221_STATUS_OK in case of success, an error code otherwise
  */
 HTS221StatusTypeDef HTS221Sensor::GetTemperature(float* pfData)
@@ -209,8 +208,8 @@ HTS221StatusTypeDef HTS221Sensor::GetTemperature(float* pfData)
 }
 
 /**
- * @brief  Read HTS221 output register, and calculate the humidity
- * @param  odr the pointer to the output data rate
+ * @brief  Get the configured output data rate.
+ * @param  odr pointer receiving the rate in hertz (0.0 for one-shot mode)
  * @retval HTS221_STATUS_OK in case of success, an error code otherwise
  */
 HTS221StatusTypeDef HTS221Sensor::GetODR(float* odr)
@@ -245,8 +244,9 @@ HTS221StatusTypeDef HTS221Sensor::GetODR(float* odr)
 }
 
 /**
- * @brief  Set ODR
- * @param  odr the output data rate to be set
+ * @brief  Set the output data rate.
+ * @param  odr requested rate in hertz; the closest supported rate not below
+ *         the request is selected (1, 7, or 12.5 Hz)
  * @retval HTS221_STATUS_OK in case of success, an error code otherwise
  */
 HTS221StatusTypeDef HTS221Sensor::SetODR(float odr)
@@ -302,11 +302,27 @@ HTS221StatusTypeDef HTS221Sensor::WriteReg( uint8_t reg, uint8_t data )
   return HTS221_STATUS_OK;
 }
 
+/**
+ * @brief Write bytes to the HTS221 over its configured I2C interface.
+ * @param handle HTS221Sensor instance used as the driver handle
+ * @param WriteAddr register address to write
+ * @param pBuffer buffer containing bytes to write
+ * @param nBytesToWrite number of bytes to write
+ * @retval Low-level write status returned by the instance.
+ */
 uint8_t HTS221_IO_Write( void *handle, uint8_t WriteAddr, uint8_t *pBuffer, uint16_t nBytesToWrite )
 {
   return ((HTS221Sensor *)handle)->IO_Write(pBuffer, WriteAddr, nBytesToWrite);
 }
 
+/**
+ * @brief Read bytes from the HTS221 over its configured I2C interface.
+ * @param handle HTS221Sensor instance used as the driver handle
+ * @param ReadAddr register address to read
+ * @param pBuffer buffer receiving the bytes
+ * @param nBytesToRead number of bytes to read
+ * @retval Low-level read status returned by the instance.
+ */
 uint8_t HTS221_IO_Read( void *handle, uint8_t ReadAddr, uint8_t *pBuffer, uint16_t nBytesToRead )
 {
   return ((HTS221Sensor *)handle)->IO_Read(pBuffer, ReadAddr, nBytesToRead);

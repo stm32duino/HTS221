@@ -51,12 +51,12 @@
 * @{
 */
 
-/** @defgroup HTS221_DRIVER
+/** @defgroup HTS221_DRIVER HTS221 Driver
 * @brief HTS221 DRIVER
 * @{
 */
 
-/** @defgroup HTS221_Imported_Function_Prototypes
+/** @defgroup HTS221_Imported_Function_Prototypes Imported Function Prototypes
 * @{
 */
 
@@ -67,7 +67,7 @@ extern uint8_t HTS221_IO_Read( void *handle, uint8_t ReadAddr, uint8_t *pBuffer,
 * @}
 */
 
-/** @defgroup HTS221_Private_Function_Prototypes
+/** @defgroup HTS221_Private_Function_Prototypes Private Function Prototypes
 * @{
 */
 
@@ -75,7 +75,7 @@ extern uint8_t HTS221_IO_Read( void *handle, uint8_t ReadAddr, uint8_t *pBuffer,
 * @}
 */
 
-/** @defgroup HTS221_Private_Functions
+/** @defgroup HTS221_Private_Functions Private Functions
 * @{
 */
 
@@ -83,7 +83,7 @@ extern uint8_t HTS221_IO_Read( void *handle, uint8_t ReadAddr, uint8_t *pBuffer,
 * @}
 */
 
-/** @defgroup HTS221_Public_Functions
+/** @defgroup HTS221_Public_Functions Public Functions
 * @{
 */
 
@@ -127,7 +127,7 @@ HTS221_Error_et HTS221_WriteReg( void *handle, uint8_t RegAddr, uint16_t NumByte
 
 /**
 * @brief  Get the version of this driver.
-* @param  pxVersion pointer to a HTS221_DriverVersion_st structure that contains the version information.
+* @param  version Pointer to a HTS221_DriverVersion_st structure that contains the version information.
 *         This parameter is a pointer to @ref HTS221_DriverVersion_st.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
@@ -142,7 +142,7 @@ HTS221_Error_et HTS221_Get_DriverVersion(HTS221_DriverVersion_st* version)
 
 /**
 * @brief  Get device type ID.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @param  deviceid pointer to the returned device type ID.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
@@ -156,7 +156,7 @@ HTS221_Error_et HTS221_Get_DeviceID(void *handle, uint8_t* deviceid)
 
 /**
 * @brief  Initializes the HTS221 with the specified parameters in HTS221_Init_st struct.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @param  pxInit pointer to a HTS221_Init_st structure that contains the configuration.
 *         This parameter is a pointer to @ref HTS221_Init_st.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
@@ -192,8 +192,8 @@ HTS221_Error_et HTS221_Set_InitConfig(void *handle, HTS221_Init_st* pxInit)
   buffer[0] |= (uint8_t)pxInit->odr;
   buffer[0] |= ((uint8_t)pxInit->bdu_status) << HTS221_BDU_BIT;
 
-  buffer[1] &= ~HTS221_HEATHER_BIT;
-  buffer[1] |= ((uint8_t)pxInit->heater_status) << HTS221_HEATHER_BIT;
+  buffer[1] &= ~HTS221_HEATER_BIT;
+  buffer[1] |= ((uint8_t)pxInit->heater_status) << HTS221_HEATER_BIT;
 
   buffer[2] &= ~(HTS221_DRDY_H_L_MASK | HTS221_PP_OD_MASK | HTS221_DRDY_MASK);
   buffer[2] |= ((uint8_t)pxInit->irq_level) << HTS221_DRDY_H_L_BIT;
@@ -208,7 +208,7 @@ HTS221_Error_et HTS221_Set_InitConfig(void *handle, HTS221_Init_st* pxInit)
 
 /**
 * @brief  Returns a HTS221_Init_st struct with the actual configuration.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @param  pxInit pointer to a HTS221_Init_st structure.
 *         This parameter is a pointer to @ref HTS221_Init_st.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
@@ -228,7 +228,7 @@ HTS221_Error_et HTS221_Get_InitConfig(void *handle, HTS221_Init_st* pxInit)
 
   pxInit->odr = (HTS221_Odr_et)(buffer[0] & HTS221_ODR_MASK);
   pxInit->bdu_status = (HTS221_State_et)((buffer[0] & HTS221_BDU_MASK) >> HTS221_BDU_BIT);
-  pxInit->heater_status = (HTS221_State_et)((buffer[1] & HTS221_HEATHER_MASK) >> HTS221_HEATHER_BIT);
+  pxInit->heater_status = (HTS221_State_et)((buffer[1] & HTS221_HEATER_MASK) >> HTS221_HEATER_BIT);
 
   pxInit->irq_level = (HTS221_DrdyLevel_et)(buffer[2] & HTS221_DRDY_H_L_MASK);
   pxInit->irq_output_type = (HTS221_OutputType_et)(buffer[2] & HTS221_PP_OD_MASK);
@@ -240,7 +240,7 @@ HTS221_Error_et HTS221_Get_InitConfig(void *handle, HTS221_Init_st* pxInit)
 /**
 * @brief  De initialization function for HTS221.
 *         This function put the HTS221 in power down, make a memory boot and clear the data output flags.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
 HTS221_Error_et HTS221_DeInit(void *handle)
@@ -268,7 +268,7 @@ HTS221_Error_et HTS221_DeInit(void *handle)
 
 /**
 * @brief  Read HTS221 output registers, and calculate humidity and temperature.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @param  humidity pointer to the returned humidity value that must be divided by 10 to get the value in [%].
 * @param  temperature pointer to the returned temperature value that must be divided by 10 to get the value in ['C].
 * @retval Error code [HTS221_OK, HTS221_ERROR].
@@ -283,7 +283,7 @@ HTS221_Error_et HTS221_Get_Measurement(void *handle, uint16_t* humidity, int16_t
 
 /**
 * @brief  Read HTS221 output registers. Humidity and temperature.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @param  humidity pointer to the returned humidity raw value.
 * @param  temperature pointer to the returned temperature raw value.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
@@ -302,10 +302,10 @@ HTS221_Error_et HTS221_Get_RawMeasurement(void *handle, int16_t* humidity, int16
 }
 
 /**
-* @brief  Read HTS221 Humidity output registers, and calculate humidity.
-* @param  *handle Device handle.
-* @param  Pointer to the returned humidity value that must be divided by 10 to get the value in [%].
-* @retval Error code [HTS221_OK, HTS221_ERROR].
+* @brief  Read the humidity output and convert it using the factory calibration.
+* @param  handle Device handle.
+* @param  value Pointer to the humidity result in tenths of a percent (0-1000).
+* @retval HTS221_OK on success, or HTS221_ERROR if a register read fails.
 */
 HTS221_Error_et HTS221_Get_Humidity(void *handle, uint16_t* value)
 {
@@ -343,8 +343,8 @@ HTS221_Error_et HTS221_Get_Humidity(void *handle, uint16_t* value)
 
 /**
 * @brief  Read HTS221 humidity output registers.
-* @param  *handle Device handle.
-* @param  Pointer to the returned humidity raw value.
+* @param handle Device handle.
+* @param  value Destination for the raw humidity value.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
 HTS221_Error_et HTS221_Get_HumidityRaw(void *handle, int16_t* value)
@@ -360,10 +360,10 @@ HTS221_Error_et HTS221_Get_HumidityRaw(void *handle, int16_t* value)
 }
 
 /**
-* @brief  Read HTS221 temperature output registers, and calculate temperature.
-* @param  *handle Device handle.
-* @param  Pointer to the returned temperature value that must be divided by 10 to get the value in ['C].
-* @retval Error code [HTS221_OK, HTS221_ERROR].
+* @brief  Read the temperature output and convert it using the factory calibration.
+* @param  handle Device handle.
+* @param  value Pointer to the temperature result in tenths of a degree Celsius.
+* @retval HTS221_OK on success, or HTS221_ERROR if a register read fails.
 */
 HTS221_Error_et HTS221_Get_Temperature(void *handle, int16_t *value)
 {
@@ -403,8 +403,8 @@ HTS221_Error_et HTS221_Get_Temperature(void *handle, int16_t *value)
 
 /**
 * @brief  Read HTS221 temperature output registers.
-* @param  *handle Device handle.
-* @param  Pointer to the returned temperature raw value.
+* @param handle Device handle.
+* @param  value Destination for the raw temperature value.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
 HTS221_Error_et HTS221_Get_TemperatureRaw(void *handle, int16_t* value)
@@ -421,7 +421,7 @@ HTS221_Error_et HTS221_Get_TemperatureRaw(void *handle, int16_t* value)
 
 /**
 * @brief  Get the availability of new data for humidity and temperature.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @param  humidity pointer to the returned humidity data status [HTS221_SET/HTS221_RESET].
 * @param  temperature pointer to the returned temperature data status [HTS221_SET/HTS221_RESET].
 *         This parameter is a pointer to @ref HTS221_BitStatus_et.
@@ -442,8 +442,7 @@ HTS221_Error_et HTS221_Get_DataStatus(void *handle, HTS221_BitStatus_et* humidit
 
 /**
 * @brief  Exit from power down mode.
-* @param  *handle Device handle.
-* @param  void.
+* @param handle Device handle.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
 HTS221_Error_et HTS221_Activate(void *handle)
@@ -463,7 +462,7 @@ HTS221_Error_et HTS221_Activate(void *handle)
 
 /**
 * @brief  Put the sensor in power down mode.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
 HTS221_Error_et HTS221_DeActivate(void *handle)
@@ -485,8 +484,8 @@ HTS221_Error_et HTS221_DeActivate(void *handle)
 
 /**
 * @brief  Check if the single measurement has completed.
-* @param  *handle Device handle.
-* @param  tmp is set to 1, when the measure is completed
+* @param handle Device handle.
+* @param  Is_Measurement_Completed Receives whether the measurement is complete.
 * @retval Status [HTS221_ERROR, HTS221_OK]
 */
 HTS221_Error_et HTS221_IsMeasurementCompleted(void *handle, HTS221_BitStatus_et* Is_Measurement_Completed)
@@ -507,7 +506,7 @@ HTS221_Error_et HTS221_IsMeasurementCompleted(void *handle, HTS221_BitStatus_et*
 
 /**
 * @brief  Set_ humidity and temperature average mode.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @param  avgh is the average mode for humidity, this parameter is @ref HTS221_Avgh_et.
 * @param  avgt is the average mode for temperature, this parameter is @ref HTS221_Avgt_et.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
@@ -534,7 +533,7 @@ HTS221_Error_et HTS221_Set_AvgHT(void *handle, HTS221_Avgh_et avgh, HTS221_Avgt_
 
 /**
 * @brief  Set humidity average mode.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @param  avgh is the average mode for humidity, this parameter is @ref HTS221_Avgh_et.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
@@ -558,7 +557,7 @@ HTS221_Error_et HTS221_Set_AvgH(void *handle, HTS221_Avgh_et avgh)
 
 /**
 * @brief  Set temperature average mode.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @param  avgt is the average mode for temperature, this parameter is @ref HTS221_Avgt_et.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
@@ -582,7 +581,7 @@ HTS221_Error_et HTS221_Set_AvgT(void *handle, HTS221_Avgt_et avgt)
 
 /**
 * @brief  Get humidity and temperature average mode.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @param  avgh pointer to the returned value with the humidity average mode.
 * @param  avgt pointer to the returned value with the temperature average mode.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
@@ -602,9 +601,8 @@ HTS221_Error_et HTS221_Get_AvgHT(void *handle, HTS221_Avgh_et* avgh, HTS221_Avgt
 
 /**
 * @brief  Set block data update mode.
-* @param  *handle Device handle.
-* @param  status can be HTS221_ENABLE: enable the block data update, output data registers are updated once both MSB and LSB are read.
-* @param  status can be HTS221_DISABLE: output data registers are continuously updated.
+* @param handle Device handle.
+* @param  status HTS221_ENABLE holds output data until both bytes are read; HTS221_DISABLE allows continuous updates.
 *         This parameter is a @ref HTS221_BitStatus_et.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
@@ -628,8 +626,8 @@ HTS221_Error_et HTS221_Set_BduMode(void *handle, HTS221_State_et status)
 
 /**
 * @brief  Get block data update mode.
-* @param  *handle Device handle.
-* @param  Pointer to the returned value with block data update mode status.
+* @param handle Device handle.
+* @param  status Receives the block data update setting.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
 HTS221_Error_et HTS221_Get_BduMode(void *handle, HTS221_State_et* status)
@@ -646,9 +644,8 @@ HTS221_Error_et HTS221_Get_BduMode(void *handle, HTS221_State_et* status)
 
 /**
 * @brief  Enter or exit from power down mode.
-* @param  *handle Device handle.
-* @param  status can be HTS221_SET: HTS221 in power down mode.
-* @param  status can be HTS221_REET: HTS221 in active mode.
+* @param handle Device handle.
+* @param  status Set HTS221_SET for power-down mode or HTS221_RESET for active mode.
 *         This parameter is a @ref HTS221_BitStatus_et.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
@@ -672,8 +669,8 @@ HTS221_Error_et HTS221_Set_PowerDownMode(void *handle, HTS221_BitStatus_et statu
 
 /**
 * @brief  Get if HTS221 is in active mode or in power down mode.
-* @param  *handle Device handle.
-* @param  Pointer to the returned value with HTS221 status.
+* @param handle Device handle.
+* @param  status Receives the power-down bit value.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
 HTS221_Error_et HTS221_Get_PowerDownMode(void *handle, HTS221_BitStatus_et* status)
@@ -690,8 +687,8 @@ HTS221_Error_et HTS221_Get_PowerDownMode(void *handle, HTS221_BitStatus_et* stat
 
 /**
 * @brief  Set the output data rate mode.
-* @param  *handle Device handle.
-* @param  odr is the output data rate mode.
+* @param handle Device handle.
+* @param  odr Output data rate to set.
 *         This parameter is a @ref HTS221_Odr_et.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
@@ -715,8 +712,8 @@ HTS221_Error_et HTS221_Set_Odr(void *handle, HTS221_Odr_et odr)
 
 /**
 * @brief  Get the output data rate mode.
-* @param  *handle Device handle.
-* @param  Pointer to the returned value with output data rate mode.
+* @param handle Device handle.
+* @param  odr Receives the output data rate mode.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
 HTS221_Error_et HTS221_Get_Odr(void *handle, HTS221_Odr_et* odr)
@@ -734,7 +731,7 @@ HTS221_Error_et HTS221_Get_Odr(void *handle, HTS221_Odr_et* odr)
 
 /**
 * @brief  Reboot Memory Content.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
 HTS221_Error_et HTS221_MemoryBoot(void *handle)
@@ -754,8 +751,8 @@ HTS221_Error_et HTS221_MemoryBoot(void *handle)
 
 /**
 * @brief  Configure the internal heater.
-* @param  *handle Device handle.
-* @param  The status of the internal heater [HTS221_ENABLE/HTS221_DISABLE].
+* @param handle Device handle.
+* @param  status Internal heater state [HTS221_ENABLE/HTS221_DISABLE].
 *         This parameter is a @ref HTS221_State_et.
 * @retval Error code [HTS221_OK, HTS221_ERROR]
 */
@@ -768,8 +765,8 @@ HTS221_Error_et HTS221_Set_HeaterState(void *handle, HTS221_State_et status)
   if(HTS221_ReadReg(handle, HTS221_CTRL_REG2, 1, &tmp))
     return HTS221_ERROR;
 
-  tmp &= ~HTS221_HEATHER_MASK;
-  tmp |= ((uint8_t)status) << HTS221_HEATHER_BIT;
+  tmp &= ~HTS221_HEATER_MASK;
+  tmp |= ((uint8_t)status) << HTS221_HEATER_BIT;
 
   if(HTS221_WriteReg(handle, HTS221_CTRL_REG2, 1, &tmp))
     return HTS221_ERROR;
@@ -779,8 +776,8 @@ HTS221_Error_et HTS221_Set_HeaterState(void *handle, HTS221_State_et status)
 
 /**
 * @brief  Get the internal heater.
-* @param  *handle Device handle.
-* @param  Pointer to the returned status of the internal heater [HTS221_ENABLE/HTS221_DISABLE].
+* @param handle Device handle.
+* @param  status Receives the internal heater state.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
 HTS221_Error_et HTS221_Get_HeaterState(void *handle, HTS221_State_et* status)
@@ -790,7 +787,7 @@ HTS221_Error_et HTS221_Get_HeaterState(void *handle, HTS221_State_et* status)
   if(HTS221_ReadReg(handle, HTS221_CTRL_REG2, 1, &tmp))
     return HTS221_ERROR;
 
-  *status = (HTS221_State_et)((tmp & HTS221_HEATHER_MASK) >> HTS221_HEATHER_BIT);
+  *status = (HTS221_State_et)((tmp & HTS221_HEATER_MASK) >> HTS221_HEATER_BIT);
 
   return HTS221_OK;
 }
@@ -798,7 +795,7 @@ HTS221_Error_et HTS221_Get_HeaterState(void *handle, HTS221_State_et* status)
 /**
 * @brief  Set ONE_SHOT bit to start a new conversion (ODR mode has to be 00).
 *         Once the measurement is done, ONE_SHOT bit is self-cleared.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
 HTS221_Error_et HTS221_StartOneShotMeasurement(void *handle)
@@ -819,23 +816,22 @@ HTS221_Error_et HTS221_StartOneShotMeasurement(void *handle)
 
 /**
 * @brief  Set level configuration of the interrupt pin DRDY.
-* @param  *handle Device handle.
-* @param  status can be HTS221_LOW_LVL: active level is LOW.
-* @param  status can be HTS221_HIGH_LVL: active level is HIGH.
-*         This parameter is a @ref HTS221_State_et.
+* @param handle Device handle.
+* @param  status Active level selection (HTS221_LOW_LVL or HTS221_HIGH_LVL).
+*         This parameter is a @ref HTS221_DrdyLevel_et.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
-HTS221_Error_et HTS221_Set_IrqActiveLevel(void *handle, HTS221_DrdyLevel_et value)
+HTS221_Error_et HTS221_Set_IrqActiveLevel(void *handle, HTS221_DrdyLevel_et status)
 {
   uint8_t tmp;
 
-  HTS221_assert_param(IS_HTS221_DrdyLevelType(value));
+  HTS221_assert_param(IS_HTS221_DrdyLevelType(status));
 
   if(HTS221_ReadReg(handle, HTS221_CTRL_REG3, 1, &tmp))
     return HTS221_ERROR;
 
   tmp &= ~HTS221_DRDY_H_L_MASK;
-  tmp |= (uint8_t)value;
+  tmp |= (uint8_t)status;
 
   if(HTS221_WriteReg(handle, HTS221_CTRL_REG3, 1, &tmp))
     return HTS221_ERROR;
@@ -845,25 +841,25 @@ HTS221_Error_et HTS221_Set_IrqActiveLevel(void *handle, HTS221_DrdyLevel_et valu
 
 /**
 * @brief  Get level configuration of the interrupt pin DRDY.
-* @param  *handle Device handle.
-* @param  Pointer to the returned status of the level configuration [HTS221_ENABLE/HTS221_DISABLE].
+* @param handle Device handle.
+* @param  status Receives the active level selection.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
-HTS221_Error_et HTS221_Get_IrqActiveLevel(void *handle, HTS221_DrdyLevel_et* value)
+HTS221_Error_et HTS221_Get_IrqActiveLevel(void *handle, HTS221_DrdyLevel_et* status)
 {
   uint8_t tmp;
 
   if(HTS221_ReadReg(handle, HTS221_CTRL_REG3, 1, &tmp))
     return HTS221_ERROR;
 
-  *value = (HTS221_DrdyLevel_et)(tmp & HTS221_DRDY_H_L_MASK);
+  *status = (HTS221_DrdyLevel_et)(tmp & HTS221_DRDY_H_L_MASK);
 
   return HTS221_OK;
 }
 
 /**
 * @brief  Set Push-pull/open drain configuration for the interrupt pin DRDY.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @param  value is the output type configuration.
 *         This parameter is a @ref HTS221_OutputType_et.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
@@ -888,8 +884,8 @@ HTS221_Error_et HTS221_Set_IrqOutputType(void *handle, HTS221_OutputType_et valu
 
 /**
 * @brief  Get the configuration for the interrupt pin DRDY.
-* @param  *handle Device handle.
-* @param  Pointer to the returned value with output type configuration.
+* @param handle Device handle.
+* @param  value Receives the output type configuration.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
 HTS221_Error_et HTS221_Get_IrqOutputType(void *handle, HTS221_OutputType_et* value)
@@ -906,7 +902,7 @@ HTS221_Error_et HTS221_Get_IrqOutputType(void *handle, HTS221_OutputType_et* val
 
 /**
 * @brief  Enable/disable the interrupt mode.
-* @param  *handle Device handle.
+* @param handle Device handle.
 * @param  status is the enable/disable for the interrupt mode.
 *         This parameter is a @ref HTS221_State_et.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
@@ -931,8 +927,8 @@ HTS221_Error_et HTS221_Set_IrqEnable(void *handle, HTS221_State_et status)
 
 /**
 * @brief  Get the interrupt mode.
-* @param  *handle Device handle.
-* @param  Pointer to the returned status of the interrupt mode configuration [HTS221_ENABLE/HTS221_DISABLE].
+* @param handle Device handle.
+* @param  status Receives the interrupt mode setting.
 * @retval Error code [HTS221_OK, HTS221_ERROR].
 */
 HTS221_Error_et HTS221_Get_IrqEnable(void *handle, HTS221_State_et* status)
@@ -952,9 +948,8 @@ HTS221_Error_et HTS221_Get_IrqEnable(void *handle, HTS221_State_et* status)
 /**
 * @brief  Reports the name of the source file and the source line number
 *         where the assert_param error has occurred.
-* @param file: pointer to the source file name
-* @param line: assert_param error line source number
-* @retval : None
+* @param file Pointer to the source file name.
+* @param line Source line number where the assert_param error occurred.
 */
 void HTS221_assert_failed(uint8_t* file, uint32_t line)
 {

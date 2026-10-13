@@ -5,27 +5,35 @@ Arduino library to support the HTS221 capacitive digital sensor for relative hum
 
 This sensor uses I2C to communicate. It is then required to create a TwoWire interface before accessing to the sensors:  
 
-    TwoWire dev_i2c(I2C_SDA, I2C_SCL);  
-    dev_i2c.begin();
+  ```cpp
+  TwoWire dev_i2c(I2C_SDA, I2C_SCL);
+  dev_i2c.begin();
+  ```
 
 An instance can be created and enabled following the procedure below:  
 
   For the humidity sensor:  
 
-    HTS221Sensor HumTemp(&dev_i2c);
-    HumTemp.begin();
-    HumTemp.Enable();  
+  ```cpp
+  HTS221Sensor HumTemp(&dev_i2c);
+  HumTemp.begin();
+  HumTemp.Enable();
+  ```
 
 The access to the sensor values is done as explained below:  
 
   Read humidity and temperature.  
 
-    float humidity;
-    float temperature;
-    HumTemp.GetHumidity(&humidity);  
-    HumTemp.GetTemperature(&temperature);  
+  ```cpp
+  float humidity;
+  float temperature;
+  HumTemp.GetHumidity(&humidity);
+  HumTemp.GetTemperature(&temperature);
+  ```
 
 ## Documentation
+
+The hosted API documentation is available at [stm32duino.github.io/HTS221](https://stm32duino.github.io/HTS221/).
 
 You can find the source files at  
 https://github.com/stm32duino/HTS221
