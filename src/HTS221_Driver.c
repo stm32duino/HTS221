@@ -192,8 +192,8 @@ HTS221_Error_et HTS221_Set_InitConfig(void *handle, HTS221_Init_st* pxInit)
   buffer[0] |= (uint8_t)pxInit->odr;
   buffer[0] |= ((uint8_t)pxInit->bdu_status) << HTS221_BDU_BIT;
 
-  buffer[1] &= ~HTS221_HEATHER_BIT;
-  buffer[1] |= ((uint8_t)pxInit->heater_status) << HTS221_HEATHER_BIT;
+  buffer[1] &= ~HTS221_HEATER_BIT;
+  buffer[1] |= ((uint8_t)pxInit->heater_status) << HTS221_HEATER_BIT;
 
   buffer[2] &= ~(HTS221_DRDY_H_L_MASK | HTS221_PP_OD_MASK | HTS221_DRDY_MASK);
   buffer[2] |= ((uint8_t)pxInit->irq_level) << HTS221_DRDY_H_L_BIT;
@@ -228,7 +228,7 @@ HTS221_Error_et HTS221_Get_InitConfig(void *handle, HTS221_Init_st* pxInit)
 
   pxInit->odr = (HTS221_Odr_et)(buffer[0] & HTS221_ODR_MASK);
   pxInit->bdu_status = (HTS221_State_et)((buffer[0] & HTS221_BDU_MASK) >> HTS221_BDU_BIT);
-  pxInit->heater_status = (HTS221_State_et)((buffer[1] & HTS221_HEATHER_MASK) >> HTS221_HEATHER_BIT);
+  pxInit->heater_status = (HTS221_State_et)((buffer[1] & HTS221_HEATER_MASK) >> HTS221_HEATER_BIT);
 
   pxInit->irq_level = (HTS221_DrdyLevel_et)(buffer[2] & HTS221_DRDY_H_L_MASK);
   pxInit->irq_output_type = (HTS221_OutputType_et)(buffer[2] & HTS221_PP_OD_MASK);
@@ -765,8 +765,8 @@ HTS221_Error_et HTS221_Set_HeaterState(void *handle, HTS221_State_et status)
   if(HTS221_ReadReg(handle, HTS221_CTRL_REG2, 1, &tmp))
     return HTS221_ERROR;
 
-  tmp &= ~HTS221_HEATHER_MASK;
-  tmp |= ((uint8_t)status) << HTS221_HEATHER_BIT;
+  tmp &= ~HTS221_HEATER_MASK;
+  tmp |= ((uint8_t)status) << HTS221_HEATER_BIT;
 
   if(HTS221_WriteReg(handle, HTS221_CTRL_REG2, 1, &tmp))
     return HTS221_ERROR;
@@ -787,7 +787,7 @@ HTS221_Error_et HTS221_Get_HeaterState(void *handle, HTS221_State_et* status)
   if(HTS221_ReadReg(handle, HTS221_CTRL_REG2, 1, &tmp))
     return HTS221_ERROR;
 
-  *status = (HTS221_State_et)((tmp & HTS221_HEATHER_MASK) >> HTS221_HEATHER_BIT);
+  *status = (HTS221_State_et)((tmp & HTS221_HEATER_MASK) >> HTS221_HEATER_BIT);
 
   return HTS221_OK;
 }
