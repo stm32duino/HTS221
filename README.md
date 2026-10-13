@@ -33,6 +33,8 @@ The access to the sensor values is done as explained below:
 
 ## Documentation
 
+The hosted API documentation is available at [stm32duino.github.io/HTS221](https://stm32duino.github.io/HTS221/).
+
 You can find the source files at  
 https://github.com/stm32duino/HTS221
 

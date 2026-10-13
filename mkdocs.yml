@@ -1,0 +1,13 @@
+site_name: HTS221
+site_description: HTS221 Arduino library API reference
+site_url: https://stm32duino.github.io/HTS221/
+repo_name: stm32duino/HTS221
+repo_url: https://github.com/stm32duino/HTS221
+docs_dir: api-docs/html
+
+theme:
+  name: material
+
+extra:
+  version:
+    provider: mike
