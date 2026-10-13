@@ -1,0 +1,11 @@
+<map id="HTS221 Driver" name="HTS221 Driver">
+<area shape="rect" id="Node000002" href="$group__Environmental__Sensor.html" title=" " alt="" coords="5,153,173,179"/>
+<area shape="rect" id="Node000001" title="HTS221 DRIVER." alt="" coords="221,153,337,179"/>
+<area shape="rect" id="Node000008" href="$group__HTS221__Exported__Constants.html" title=" " alt="" coords="418,5,567,31"/>
+<area shape="rect" id="Node000009" href="$group__HTS221__Exported__Functions.html" title=" " alt="" coords="419,55,566,80"/>
+<area shape="rect" id="Node000007" href="$group__HTS221__Exported__Types.html" title=" " alt="" coords="432,104,553,129"/>
+<area shape="rect" id="Node000003" href="$group__HTS221__Imported__Function__Prototypes.html" title=" " alt="" coords="385,153,600,179"/>
+<area shape="rect" id="Node000004" href="$group__HTS221__Private__Function__Prototypes.html" title=" " alt="" coords="392,203,593,228"/>
+<area shape="rect" id="Node000005" href="$group__HTS221__Private__Functions.html" title=" " alt="" coords="425,252,560,277"/>
+<area shape="rect" id="Node000006" href="$group__HTS221__Public__Functions.html" title=" " alt="" coords="429,301,556,327"/>
+</map>
